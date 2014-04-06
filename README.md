@@ -55,11 +55,11 @@ Credits
   https://github.com/biergaizi/nvesabios
 
 * Clover
-* http://sourceforge.net/projects/cloverefiboot/
- 
+  http://sourceforge.net/projects/cloverefiboot/
+
 * pene - Reverse Engineering on NVIDIA VBIOS (READ IT IF YOU WANT TO JOIN ME)
   http://www.projectosx.com/forum/index.php?showtopic=2562&st=2840&p=22683&#entry22683
- 
+
 * Chameleon
   http://forge.voodooprojects.org/p/chameleon
 
