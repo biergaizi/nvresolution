@@ -11,9 +11,53 @@ Unfortunately, in a text-mode framebuffer, NVIDIA's proprietary drivers for Linu
 nvresolution is a tool to modify the video BIOS of the NVIDIA GPU.
 It modifies the video BIOS, replaces a resolution mode into your specificed resolution, in order to use the native resolutions of your monitors.
 
+Build into GRUB 2
+-------------------
+
+* Create a sub-directory called "grub-extras" of your grub2 checkout
+* git checkout grub, at your nvresolution checkout
+* copy nvresolution checkout into grub-extras
+* Export GRUB\_CONTRIB environment variable to point to grub-extras.
+* Build GRUB as usual (./autogen.sh; make).
+
+```
+git clone git://git.savannah.gnu.org/grub.git
+cd grub
+git clone git://github.com/biergaizi/nvresolution.git
+cd nvresolution
+git checkout grub
+cd ../
+mkdir grub-extras
+cp nvresolution grub-extras/ -R
+export GRUB_CONTRIB="$(pwd)/grub-extras/"
+./autogen.sh
+make
+sudo make install
+# grub-install to install GRUB to MBR and /boot
+```
+
 Usage
 --------
     Usage: ./nvresolution [width] [height]
+
+How To Get a High Resolution
+--------------------------------
+
+1. Build nvresolution into GRUB
+2. Install GRUB
+3. Check whether you have `uvesafb` kernel module
+   * https://wiki.archlinux.org/index.php/Uvesafb
+   * http://wiki.gentoo.org/wiki/Uvesafb
+4. If uvesafb is built into the kernel,
+    * add kernel parameter: `video=uvesafb:1440x900-32,mtrr:3,ywrap`, don't forget to replace 1440x900 to your resolution.
+5. If uvesafb is a kernel module,
+    * `echo "options uvesafb mode_option=1440x900-32 scroll=ywrap" > /etc/modprobe.d/uvesafb.conf`
+
+If you can't rebuild GRUB:
+
+1. `make static`, you got a static version of nvresolution
+2. https://wiki.archlinux.org/index.php/Uvesafb#Uvesafb\_and\_915resolution
+   * Don't forget to replace all 915resolution (and its usage) into nvresolution
 
 Supported Hardwares
 -------------------
