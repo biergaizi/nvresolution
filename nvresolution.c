@@ -48,6 +48,9 @@
  */
 
 
+#include "grub.h"
+
+#ifndef GRUB
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -58,6 +61,7 @@
 
 #include <sys/mman.h>
 #include <sys/io.h>
+#endif
 
 #define VBIOS_START 0xc0000
 #define VBIOS_SIZE 0x10000
@@ -159,6 +163,7 @@ void detect_chipset_info(vbios_map *map)
 
 }
 
+#ifndef GRUB
 vbios_map *map_vbios(void)
 {
     vbios_map *map = malloc(sizeof(vbios_map));
@@ -180,16 +185,24 @@ vbios_map *map_vbios(void)
     }
     return map;
 }
+#endif
 
 vbios_map *open_vbios(void)
 {
+#ifndef GRUB
     vbios_map *map = map_vbios();
+#else
+    vbios_map *map = malloc(sizeof(vbios_map));
+    map->bios_ptr = (uint8_t *) VBIOS_START;
+#endif
 
+#ifndef GRUB
     /* get the permission in order to write registers */
     if (iopl(3) < 0) {
         fprintf(stderr, "Unable to obtain the proper IO permissions.\n");
         exit(1);
     }
+#endif
     detect_chipset_info(map);
 
     uint16_t nv_data_table_offset = 0;
@@ -228,8 +241,10 @@ vbios_map *open_vbios(void)
 
 void close_vbios(vbios_map *map)
 {
+#ifndef GRUB
     munmap(map->bios_ptr, VBIOS_SIZE);
     close(map->bios_fd);
+#endif
     free(map);
 }
 
@@ -313,12 +328,20 @@ void show_help(char *name)
     return;
 }
 
+#ifndef GRUB
 int main(int argc, char **argv)
+#else
+int main_nv(int argc, char **argv);
+int main_nv(int argc, char **argv)
+#endif
 {
+    char *name = argv[0];
+
     if (argc != 3) {
-        show_help(argv[0]);
+        show_help(name);
         return 0;
     }
+
     int width = atoi(argv[1]);
     int height = atoi(argv[2]);
 
@@ -326,6 +349,45 @@ int main(int argc, char **argv)
     set_mode(map, width, height);
     close_vbios(map);
 
+#ifdef GRUB
+    if (status != 0) {
+        status = 0;
+        return 1;
+    }
+#endif
     printf("Hacked resolution to %dx%d.\n", width, height);
     return 0;
 }
+
+#ifdef GRUB
+static grub_err_t
+grub_cmd_nvresolution (grub_command_t cmd __attribute__ ((unused)),
+			int argc, char *argv[])
+{
+  const int my_argc = argc + 1;
+  char *my_argv[3];
+  static const char *name = "nvresolution";
+
+  my_argv[0] = (char *) name;
+  if (argc >= 1) {
+      my_argv[1] = argv[0];
+  }
+  if (argc >= 2) {
+      my_argv[2] = argv[1];
+  }
+  return main_nv (my_argc, my_argv);
+}
+
+static grub_command_t cmd;
+
+GRUB_MOD_INIT(nvresolution)
+{
+  cmd = grub_register_command ("nvresolution", grub_cmd_nvresolution,
+			       "nvresolution", "NVIDIA VBE editor");
+}
+
+GRUB_MOD_FINI(nvresolution)
+{
+  grub_unregister_command (cmd);
+}
+#endif

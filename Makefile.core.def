@@ -1,0 +1,10 @@
+AutoGen definitions Makefile.tpl;
+
+module = {
+  name = 'nvresolution';
+  i386_pc = contrib/nvresolution/nvresolution.c;
+  i386_pc = contrib/nvresolution/nvidia.h;
+  i386_pc = contrib/nvresolution/intel.h;
+  i386_pc = contrib/nvresolution/grub.h;
+  enable = i386_pc;
+};
