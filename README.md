@@ -40,11 +40,24 @@ Usage
 --------
     Usage: ./nvresolution [width] [height]
 
+    root is required.
+
+Check If It Works
+------------------
+1. make
+2. Install `hwinfo`
+3. `hwinfo --framebuffer`, get a list of available resolution.
+4. `./nvresolution [width] [height]`
+5. `hwinfo --frambuffer` to see whether the new resolution appears in the list.
+    * If so, following the next steps to hack the resolution every time you boot.
+    * Otherwise, please report an issue.
+
 How To Get a High Resolution
 --------------------------------
 
 1. Build nvresolution into GRUB
 2. Install GRUB
+3. Execute nvresolution every time you boot (add `nvresolution 1440 900` to grub.cfg)
 3. Check whether you have `uvesafb` kernel module
    * https://wiki.archlinux.org/index.php/Uvesafb
    * http://wiki.gentoo.org/wiki/Uvesafb
