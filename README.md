@@ -31,6 +31,7 @@ mkdir grub-extras
 cp nvresolution grub-extras/ -R
 export GRUB_CONTRIB="$(pwd)/grub-extras/"
 ./autogen.sh
+./configure
 make
 sudo make install
 # grub-install to install GRUB to MBR and /boot
