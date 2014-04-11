@@ -166,7 +166,7 @@ vbios_map *map_vbios(void)
 
     map->bios_fd = open(VBIOS_FILE, O_RDWR);
     if (map->bios_fd < 0) {
-        fprintf(stderr, "Unable to open the BIOS file.\n");
+        fprintf(stderr, "Unable to open %s.\n", VBIOS_FILE);
         exit(1);
     }
 
