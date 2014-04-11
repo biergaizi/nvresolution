@@ -242,17 +242,15 @@ void unlock_vbios(vbios_map *map)
     outb(0x33, MECH_ONE_DATA + 1);
     outb(0x33, MECH_ONE_DATA + 2);
 
-    uint8_t *ptr = map->bios_ptr + 0xa123;
-    uint8_t val_orig = *ptr;
-    *ptr += 1;
-    if (*ptr != val_orig) {
-        *ptr = val_orig;
-        map->locked = false;
-    }
-    else {
+    /* why 0xa123? */
+    uint8_t orig_val = map->bios_ptr[0xa123];
+    map->bios_ptr[0xa123] += 1;
+    if (map->bios_ptr[0xa123] == orig_val) {
         fprintf(stderr, "Registers set, but still unable to modify VBIOS.\n");
         exit(1);
     }
+    map->bios_ptr[0xa123] = orig_val;
+    map->locked = false;
 }
 
 void relock_vbios(vbios_map *map)
