@@ -273,6 +273,7 @@ void relock_vbios(vbios_map *map)
     outl(map->pam_addr, MECH_ONE_ADDR);
     outb(map->b1, MECH_ONE_DATA + 1);
     outb(map->b2, MECH_ONE_DATA + 2);
+    map->locked = true;
 }
 
 
