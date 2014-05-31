@@ -4,11 +4,13 @@ nvresolution
 NVResolution: NVIDIA Video BIOS Hack
 
 Nowadays, many people use their computers with wide-screen monitors.
-But, these resolutions aren't the VESA standards, the drivers deal with them by themselves.
+But, these resolutions aren't the VESA standards, the video drivers/framebuffers deal with them by themselves.
 
-Unfortunately, in a text-mode framebuffer, NVIDIA's proprietary drivers for Linux supported the VESA resolutions only. Therefore, we get poor resolutions when we using NVIDIA's proprietary drivers.
+Unfortunately, NVIDIA's proprietary drivers for Linux don't provide framebuffer drivers. We have to use VESA compatible framebuffer and standard VESA resolution only. Therefore, we get poor resolutions when we using NVIDIA's proprietary drivers. Or, we could use Nouveau and get great resolutions with nouveaufb, but the performance is poor.
 
-nvresolution is a tool to modify the video BIOS of the NVIDIA GPU.
+No, you can't use both of them. So, Nvidia users on GNU/Linux Platform are painful.
+
+But, nvresolution changed the situation. nvresolution is a tool to hotpatch the video BIOS of the NVIDIA GPU.
 It modifies the video BIOS, replaces a resolution mode into your specificed resolution, in order to use the native resolutions of your monitors.
 
 Build into GRUB 2
@@ -91,10 +93,10 @@ Pull Requests are welcomed.
 
 Safety
 ---------
-It modifies the video BIOS?! Yes, but the video BIOS it modifies which is mapped into the RAM. It means the modifications of the BIOS are transient. The modification will lose after shutting down.
+It modifies the video BIOS?! Yes, but it is a hotpatch. The video BIOS area it modifies which is mapped into the RAM. It means the modifications of the BIOS are transient. The modification will lose after shutting down.
 There is no risk of permanent modification of the BIOS. It also means that nvresolution must be run every time the computer boots.
 
-If it breaks your graphics, just reboot your computers.
+In the worst case, if it breaks your graphics, just reboot your computer.
 
 But, please keep in mind:
 
