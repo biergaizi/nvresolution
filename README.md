@@ -91,28 +91,15 @@ There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR P
 
 Credits
 ---------
-* 915Resolution - The source of all the resolution hacks
-  http://915resolution.mango-lang.org/
-
-* DieBuche - The original work on hacking legacy NVIDIA/ATI VBIOS
-  http://www.insanelymac.com/forum/topic/211294-information-on-vesa-modes-in-atinvidia-bios/
-
-* P.S: my `nvesabios` tool
-  https://github.com/biergaizi/nvesabios
-
-* Clover
-  http://sourceforge.net/projects/cloverefiboot/
-
-* pene - Reverse Engineering on NVIDIA VBIOS (READ IT IF YOU WANT TO JOIN ME)
-  http://www.projectosx.com/forum/index.php?showtopic=2562&st=2840&p=22683&#entry22683
-
-* Chameleon
-  http://forge.voodooprojects.org/p/chameleon
-
-* dmazar - Providing the information about unlocking PAM on newer CPUs
-  http://www.insanelymac.com/forum/topic/284296-solved-resolution-hack-for-1st-gen-intel-hd-graphics/
-
-* GNU GRUB
-  http://www.gnu.org/software/grub/
-
+* [915Resolution](http://915resolution.mango-lang.org/) - The source of all the resolution hacks
+* [DieBuche](http://www.insanelymac.com/forum/topic/211294-information-on-vesa-modes-in-atinvidia-bios/) - The original work on hacking legacy NVIDIA/ATI VBIOS
+* [Clover](http://sourceforge.net/projects/cloverefiboot/)
+* [pene](http://www.projectosx.com/forum/index.php?showtopic=2562&st=2840&p=22683&#entry22683) - Reverse Engineering on NVIDIA VBIOS (READ IT IF YOU WANT TO JOIN ME)
+* [Chameleon](http://forge.voodooprojects.org/p/chameleon)
+* [dmazar](http://www.insanelymac.com/forum/topic/284296-solved-resolution-hack-for-1st-gen-intel-hd-graphics/) - Providing the information about unlocking PAM on newer CPUs
+* [GNU GRUB](http://www.gnu.org/software/grub/)
 * VBIOS images submitted by Hackintosh users
+
+See Also
+-------------
+* my [nvesabios](https://github.com/biergaizi/nvesabios) tool - It shows the old way to analytics and modify the VBIOS.
