@@ -257,7 +257,7 @@ void unlock_vbios(vbios_map *map)
     outb(0x33, MECH_ONE_DATA + 1);
     outb(0x33, MECH_ONE_DATA + 2);
 
-    /* why 0xa123? */
+    /* just select a random index to test it */
     uint8_t orig_val = map->bios_ptr[0xa123];
     map->bios_ptr[0xa123] += 1;
     if (map->bios_ptr[0xa123] == orig_val) {
